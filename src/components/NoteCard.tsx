@@ -4,50 +4,56 @@ import { MdClose } from 'react-icons/md';
 
 interface NoteCardProps {
   note: Note;
-  onEdit: (n: Note) => void;
+  isDeleting?: boolean;
+  onEditClick: (note: Note) => void;
   onDelete: (id: number) => void;
   onTogglePin: (id: number) => void;
 }
 
 const NoteCard = ({
   note,
-  onEdit,
+  isDeleting,
+  onEditClick,
   onDelete,
   onTogglePin,
 }: NoteCardProps) => {
   return (
     <>
-      <div className="p-4 rounded-xl shadow-lg backdrop-blur-sm bg-black/30 border border-white/10 flex flex-col">
+      <div
+        className={`p-4 rounded-xl shadow-lg backdrop-blur-sm bg-black/30 border border-white/10 flex flex-col cursor-pointer transition-transform duration-300 ${
+          isDeleting ? 'scale-out' : 'scale-in'
+        }`}
+        onClick={() => onEditClick(note)}
+      >
         <div className="flex justify-between items-center mb-2">
-          <button onClick={() => onTogglePin(note.id)}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onTogglePin(note.id);
+            }}
+          >
             {note.isPinned ? (
-              <BsPinFill className="text-yellow-500" />
+              <BsPinFill className="h-5 w-5 text-yellow-500 hover:text-gray-500 cursor-pointer" />
             ) : (
-              <BsPinAngle className="text-gray-500" />
+              <BsPinAngle className="h-5 w-5 text-gray-500 hover:text-yellow-500 cursor-pointer" />
             )}
           </button>
 
-          <button onClick={() => onDelete(note.id)}>
-            <MdClose className="text-red-500" />
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(note.id);
+            }}
+          >
+            <MdClose className="h-5 w-5 text-gray-500 hover:text-red-500 cursor-pointer" />
           </button>
         </div>
-        <input
-          type="text"
-          value={note.title}
-          onChange={(e) =>
-            onEdit({ ...note, title: e.target.value })
-          }
-          placeholder="Title"
-          className="bg-transparent font-bold text-lg w-full outline-none"
-        />
-        <textarea
-          value={note.content}
-          onChange={(e) =>
-            onEdit({ ...note, content: e.target.value })
-          }
-          placeholder="Note..."
-          className="bg-transparent mt-2 w-full h-24 outline-none resize-none"
-        />
+        <h3 className="font-bold text-lg">
+          {note.title || 'Tanpa Judul'}
+        </h3>
+        <p className="mt-2 text-sm line-clamp-3">
+          {note.content || '...'}
+        </p>
       </div>
     </>
   );
