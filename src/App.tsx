@@ -7,11 +7,19 @@ import {
 import NoteCard from './components/NoteCard';
 import AddButton from './components/AddButton';
 import SearchBar from './components/SearchBar';
+import NoteModal from './components/NoteModal';
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<
+    'add' | 'edit'
+  >('add');
+  const [activeNote, setActiveNote] = useState<
+    Note | undefined
+  >(undefined);
 
   useEffect(() => {
     const loadedNotes = getNotes();
@@ -25,24 +33,42 @@ function App() {
     }
   }, [notes, isInitialized]);
 
-  const addNote = () => {
-    const newNote: Note = {
-      id: Date.now(),
-      title: '',
-      content: '',
-      isPinned: false,
-    };
-    setNotes([newNote, ...notes]);
+  const handleAddClick = () => {
+    setModalMode('add');
+    setActiveNote(undefined);
+    setIsModalOpen(true);
   };
 
-  const updateNote = (updated: Note) => {
-    setNotes(
-      notes.map((n) => (n.id === updated.id ? updated : n))
-    );
+  const handleEditClick = (note: Note) => {
+    setModalMode('edit');
+    setActiveNote(note);
+    setIsModalOpen(true);
   };
 
+  const handleSaveNote = (note: Note) => {
+    if (modalMode === 'add') {
+      setNotes([note, ...notes]);
+    } else {
+      setNotes(
+        notes.map((n) => (n.id === note.id ? note : n))
+      );
+    }
+  };
+
+  const [deletingNoteIds, setDeletingNoteIds] = useState<
+    number[]
+  >([]);
   const deleteNote = (id: number) => {
-    setNotes(notes.filter((n) => n.id !== id));
+    setDeletingNoteIds((prev) => [...prev, id]);
+
+    setTimeout(() => {
+      setNotes((prevNotes) =>
+        prevNotes.filter((n) => n.id !== id)
+      );
+      setDeletingNoteIds((prev) =>
+        prev.filter((noteId) => noteId !== id)
+      );
+    }, 300); // durasi animasi (ms)
   };
 
   const togglePin = (id: number) => {
@@ -68,6 +94,15 @@ function App() {
       if (!a.isPinned && b.isPinned) return 1;
       return 0;
     });
+  const [isClosingModal, setIsClosingModal] =
+    useState(false);
+  const handleCloseModal = () => {
+    setIsClosingModal(true);
+    setTimeout(() => {
+      setIsModalOpen(false);
+      setIsClosingModal(false);
+    }, 300); // sesuaikan dengan durasi animasi
+  };
 
   return (
     <>
@@ -83,7 +118,10 @@ function App() {
               <NoteCard
                 key={note.id}
                 note={note}
-                onEdit={updateNote}
+                isDeleting={deletingNoteIds.includes(
+                  note.id
+                )}
+                onEditClick={handleEditClick}
                 onDelete={deleteNote}
                 onTogglePin={togglePin}
               />
@@ -91,10 +129,20 @@ function App() {
           </div>
 
           <div className="fixed bottom-10 inset-x-0 flex justify-end max-w-7xl mx-auto px-4">
-            <AddButton onClick={addNote} />
+            <AddButton onClick={handleAddClick} />
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <NoteModal
+          mode={modalMode}
+          note={activeNote}
+          onSave={handleSaveNote}
+          onClose={handleCloseModal}
+          isClosing={isClosingModal}
+        />
+      )}
     </>
   );
 }
