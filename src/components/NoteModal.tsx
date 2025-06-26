@@ -51,40 +51,38 @@ const NoteModal = ({
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm px-4">
         <div
-          className={`bg-gray-800 p-6 rounded-lg w-full h-2/4 max-w-lg shadow-lg transition-transform duration-300 ${
+          className={`flex flex-col justify-between bg-gray-800/30 text-white backdrop-blur-md border border-gray-700/40 p-6 rounded-lg w-full max-w-6xl h-4/5 shadow-lg transition-transform duration-300 ${
             isClosing ? 'scale-out' : 'scale-in'
           }`}
         >
           <h2 className="text-lg font-bold mb-4 text-white">
-            {mode === 'add'
-              ? 'Tambah Catatan'
-              : 'Edit Catatan'}
+            {mode === 'add' ? 'Add Note' : 'Edit Note'}
           </h2>
           <input
             type="text"
-            placeholder="Judul"
-            className="w-full p-2 mb-3 rounded border border-gray-300 bg-gray-700 text-white border-none outline-none focus:outline-none focus:ring-0"
+            placeholder="Title"
+            className="w-full p-2 mb-3 text-4xl rounded border-none outline-none focus:outline-none focus:ring-0"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            placeholder="Isi catatan"
-            className="w-full p-2 mb-4 rounded border border-gray-300 bg-gray-700 text-white resize-none h-52 border-none outline-none focus:outline-none focus:ring-0"
+            placeholder="Content of the note"
+            className="w-full p-2 mb-4 rounded text-white  resize-none h-52 border-none outline-none focus:outline-none focus:ring-0"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-end mt-auto space-x-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-400 cursor-pointer"
+              className="px-4 py-2 text-white rounded hover:bg-white/30 transition duration-300 cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+              className="px-4 py-2 text-white rounded hover:bg-white/30 transition duration-300 cursor-pointer"
             >
               {mode === 'add' ? 'Add' : 'Save'}
             </button>

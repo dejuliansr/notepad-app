@@ -1,4 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  ----color-jet: hsl(0, 0%, 22%);
+}
 
 /* animations.css */
 @keyframes scale-in {

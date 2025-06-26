@@ -20,7 +20,7 @@ const NoteCard = ({
   return (
     <>
       <div
-        className={`p-4 rounded-xl shadow-lg backdrop-blur-sm bg-black/30 border border-white/10 flex flex-col cursor-pointer transition-transform duration-300 ${
+        className={`bg-gray-800/30 backdrop-blur-md border border-gray-700/40 shadow-lg rounded-lg p-4 flex flex-col cursor-pointer transition-transform duration-300 ${
           isDeleting ? 'scale-out' : 'scale-in'
         }`}
         onClick={() => onEditClick(note)}
@@ -49,7 +49,7 @@ const NoteCard = ({
           </button>
         </div>
         <h3 className="font-bold text-lg">
-          {note.title || 'Tanpa Judul'}
+          {note.title || 'Untitled'}
         </h3>
         <p className="mt-2 text-sm line-clamp-3">
           {note.content || '...'}
