@@ -106,12 +106,17 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-900 text-white p-4">
+      <div
+        className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900
+      text-white p-4"
+      >
         <div className="w-full max-w-7xl mx-auto px-4 py-4">
-          <SearchBar
-            value={searchTerm}
-            onChange={setSearchTerm}
-          />
+          <div className="flex items-center gap-4 mb-4">
+            <SearchBar
+              value={searchTerm}
+              onChange={setSearchTerm}
+            />
+          </div>
 
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             {filteredNotes.map((note) => (
@@ -127,6 +132,12 @@ function App() {
               />
             ))}
           </div>
+
+          {filteredNotes.length === 0 && (
+            <div className="text-center text-5xl text-white/60 mt-20">
+              No notes found
+            </div>
+          )}
 
           <div className="fixed bottom-10 inset-x-0 flex justify-end max-w-7xl mx-auto px-4">
             <AddButton onClick={handleAddClick} />
