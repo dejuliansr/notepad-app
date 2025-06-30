@@ -63,7 +63,7 @@ const NoteModal = ({
           <input
             type="text"
             placeholder="Title"
-            className="w-full p-2 mb-3 text-4xl rounded border-none outline-none focus:outline-none focus:ring-0"
+            className="w-full h-12 p-2 mb-3 text-3xl md:text-4xl rounded border-none outline-none focus:outline-none focus:ring-0"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
