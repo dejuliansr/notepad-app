@@ -69,7 +69,7 @@ const NoteModal = ({
           />
           <textarea
             placeholder="Content of the note"
-            className="w-full p-2 mb-4 rounded text-white  resize-none h-52 border-none outline-none focus:outline-none focus:ring-0"
+            className="w-full p-2 mb-4 rounded text-white  resize-none h-full border-none outline-none focus:outline-none focus:ring-0 scroll-container"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />

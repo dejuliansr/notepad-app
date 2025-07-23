@@ -5,6 +5,11 @@
   ----color-jet: hsl(0, 0%, 22%);
 }
 
+.scroll-container::-webkit-scrollbar {
+  width: 15px;
+  cursor: pointer;
+}
+
 /* animations.css */
 @keyframes scale-in {
   0% {
