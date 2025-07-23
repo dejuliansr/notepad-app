@@ -68,7 +68,7 @@ function App() {
       setDeletingNoteIds((prev) =>
         prev.filter((noteId) => noteId !== id)
       );
-    }, 300); // durasi animasi (ms)
+    }, 300);
   };
 
   const togglePin = (id: number) => {
@@ -101,7 +101,7 @@ function App() {
     setTimeout(() => {
       setIsModalOpen(false);
       setIsClosingModal(false);
-    }, 300); // sesuaikan dengan durasi animasi
+    }, 300);
   };
 
   return (
