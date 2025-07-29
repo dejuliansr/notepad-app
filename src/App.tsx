@@ -134,7 +134,7 @@ function App() {
           </div>
 
           {filteredNotes.length === 0 && (
-            <div className="text-center text-5xl text-white/60 mt-20">
+            <div className="text-center text-3xl md:text-5xl text-white/60 mt-20">
               No notes found
             </div>
           )}
