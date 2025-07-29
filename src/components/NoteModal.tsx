@@ -51,9 +51,9 @@ const NoteModal = ({
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm px-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-md px-4">
         <div
-          className={`flex flex-col justify-between bg-gray-800/30 text-white backdrop-blur-md border border-gray-700/40 p-6 rounded-lg w-full max-w-6xl h-4/5 shadow-lg transition-transform duration-300 ${
+          className={`flex flex-col justify-between bg-gray-800/30 text-white border border-gray-700/40 backdrop-blur-md p-6 rounded-lg w-full max-w-6xl h-4/5 shadow-lg transition-transform duration-300 ${
             isClosing ? 'scale-out' : 'scale-in'
           }`}
         >
@@ -63,7 +63,7 @@ const NoteModal = ({
           <input
             type="text"
             placeholder="Title"
-            className="w-full h-12 p-2 mb-3 text-3xl md:text-4xl rounded border-none outline-none focus:outline-none focus:ring-0"
+            className="w-full h-12 p-2 mb-3 text-2xl sm:text-3xl md:text-4xl rounded border-none outline-none focus:outline-none focus:ring-0"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
