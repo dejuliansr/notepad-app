@@ -52,7 +52,7 @@ const NoteCard = ({
           {note.title || 'Untitled'}
         </h3>
         <p className="mt-2 text-sm line-clamp-3">
-          {note.content || '...'}
+          {note.content.replace(/<[^>]+>/g, '') || '...'}
         </p>
       </div>
     </>
