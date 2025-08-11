@@ -5,9 +5,17 @@
   ----color-jet: hsl(0, 0%, 22%);
 }
 
-.scroll-container::-webkit-scrollbar {
-  width: 15px;
-  cursor: pointer;
+.ql-toolbar, .ql-container {
+  border: none !important;
+}
+
+.ql-editor {
+  border: blue
+}
+
+.ql-container::-webkit-scrollbar {
+  width: 15px !important;
+  cursor: pointer !important;
 }
 
 /* animations.css */
