@@ -4,12 +4,15 @@ import './assets/styles/app.css';
 import {
   getNotes,
   saveNotes,
+  getLayout,
+  saveLayout,
   type Note,
 } from './utils/storage';
 import NoteCard from './components/NoteCard';
 import AddButton from './components/AddButton';
 import SearchBar from './components/SearchBar';
 import NoteModal from './components/NoteModal';
+import ToggleLayoutButton from './components/ToggleLayoutButton';
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -22,10 +25,15 @@ function App() {
   const [activeNote, setActiveNote] = useState<
     Note | undefined
   >(undefined);
+  const [layout, setLayout] = useState<'grid' | 'list'>(
+    'grid'
+  );
 
   useEffect(() => {
     const loadedNotes = getNotes();
+    const savedLayout = getLayout();
     setNotes(loadedNotes);
+    setLayout(savedLayout);
     setIsInitialized(true);
   }, []);
 
@@ -34,6 +42,12 @@ function App() {
       saveNotes(notes);
     }
   }, [notes, isInitialized]);
+
+  useEffect(() => {
+    if (isInitialized) {
+      saveLayout(layout);
+    }
+  }, [layout, isInitialized]);
 
   const handleAddClick = () => {
     setModalMode('add');
@@ -113,14 +127,28 @@ function App() {
       text-white p-4"
       >
         <div className="w-full max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-4 mb-8">
             <SearchBar
               value={searchTerm}
               onChange={setSearchTerm}
             />
+            <ToggleLayoutButton
+              layout={layout}
+              onToggle={() =>
+                setLayout(
+                  layout === 'grid' ? 'list' : 'grid'
+                )
+              }
+            />
           </div>
 
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <div
+            className={
+              layout === 'grid'
+                ? 'grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+                : 'flex flex-col gap-4'
+            }
+          >
             {filteredNotes.map((note) => (
               <NoteCard
                 key={note.id}
@@ -131,6 +159,7 @@ function App() {
                 onEditClick={handleEditClick}
                 onDelete={deleteNote}
                 onTogglePin={togglePin}
+                layout={layout}
               />
             ))}
           </div>
