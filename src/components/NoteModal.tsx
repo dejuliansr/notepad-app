@@ -81,9 +81,9 @@ const NoteModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-md px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 blurred px-4">
       <div
-        className={`flex flex-col bg-gray-800/30 text-white border border-gray-700/40 backdrop-blur-md p-6 rounded-lg w-full max-w-6xl h-4/5 shadow-lg transition-transform duration-300 ${
+        className={`flex flex-col bg-gray-800/30 text-white border border-gray-700/40 blurred p-6 rounded-lg w-full max-w-6xl h-4/5 shadow-lg transition-transform duration-300 ${
           isClosing ? 'scale-out' : 'scale-in'
         }`}
       >
@@ -102,7 +102,7 @@ const NoteModal = ({
         {/* Quill Editor */}
         <div
           ref={editorRef}
-          className="w-full p-3 mb-4 rounded text-white bg-gray-900/20 overflow-auto h-full border-none outline-none focus:outline-none focus:ring-0 scroll-container"
+          className="w-full py-3 mb-4 rounded text-white bg-gray-900/20 overflow-auto h-full border-none outline-none focus:outline-none focus:ring-0 scroll-container"
         />
 
         <div className="flex justify-end mt-4 space-x-2">

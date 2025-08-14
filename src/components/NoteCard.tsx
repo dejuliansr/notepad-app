@@ -20,7 +20,7 @@ const NoteCard = ({
   return (
     <>
       <div
-        className={`bg-gray-800/30 backdrop-blur-md border border-gray-700/40 shadow-lg rounded-lg p-4 flex flex-col cursor-pointer hover:scale-105 transition-all duration-300 ${
+        className={`bg-gray-800/30 blurred border border-gray-700/40 shadow-lg rounded-lg p-4 flex flex-col cursor-pointer hover:scale-105 transition-all duration-300 ${
           isDeleting ? 'scale-out' : 'scale-in'
         }`}
         onClick={() => onEditClick(note)}

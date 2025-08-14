@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import './assets/styles/app.css';
+
 import {
   getNotes,
   saveNotes,
